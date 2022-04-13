@@ -25,8 +25,8 @@ export default class NewBill {
     const fileName = filePath[filePath.length - 1];
     if (
       ![".jpg", ".png"].includes(
-        fileName.slice(-4) && fileName.slice(-5) !== ".jpeg"
-      )
+        fileName.slice(-4)) && fileName.slice(-5) !== ".jpeg"
+      
     ) {
       this.document.querySelector(`input[data-testid="file"]`).value = "";
       console.error("Veuillez insérer un fichier au format jpg, jpeg ou png.");

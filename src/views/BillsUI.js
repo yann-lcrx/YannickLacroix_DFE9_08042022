@@ -23,7 +23,7 @@ const row = (bill) => {
 const rows = (data) => {
   return data && data.length
     ? data
-        .sort((a, b) => b.date.localeCompare(a.date))
+        .sort((a, b) => b.date && b.date.localeCompare(a.date))
         .map((bill) => row(bill))
         .join("")
     : "";

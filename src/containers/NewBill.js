@@ -24,9 +24,8 @@ export default class NewBill {
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
     if (
-      ![".jpg", ".png"].includes(
-        fileName.slice(-4)) && fileName.slice(-5) !== ".jpeg"
-      
+      ![".jpg", ".png"].includes(fileName.slice(-4)) &&
+      fileName.slice(-5) !== ".jpeg"
     ) {
       this.document.querySelector(`input[data-testid="file"]`).value = "";
       console.error("Veuillez insérer un fichier au format jpg, jpeg ou png.");
@@ -45,7 +44,6 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-          console.log(fileUrl);
           this.billId = key;
           this.fileUrl = fileUrl;
           this.fileName = fileName;
@@ -55,10 +53,6 @@ export default class NewBill {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      'e.target.querySelector(`input[data-testid="datepicker"]`).value',
-      e.target.querySelector(`input[data-testid="datepicker"]`).value
-    );
     const email = JSON.parse(localStorage.getItem("user")).email;
     const bill = {
       email,

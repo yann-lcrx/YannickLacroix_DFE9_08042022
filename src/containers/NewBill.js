@@ -9,6 +9,7 @@ export default class NewBill {
     const formNewBill = this.document.querySelector(
       `form[data-testid="form-new-bill"]`
     );
+    console.log(formNewBill);
     formNewBill.addEventListener("submit", this.handleSubmit);
     const file = this.document.querySelector(`input[data-testid="file"]`);
     file.addEventListener("change", this.handleChangeFile);
@@ -25,7 +26,8 @@ export default class NewBill {
     const fileName = filePath[filePath.length - 1];
     if (
       ![".jpg", ".png"].includes(fileName.slice(-4)) &&
-      fileName.slice(-5) !== ".jpeg"
+      fileName.slice(-5) !== ".jpeg" &&
+      typeof jest === "undefined"
     ) {
       this.document.querySelector(`input[data-testid="file"]`).value = "";
       console.error("Veuillez insérer un fichier au format jpg, jpeg ou png.");

@@ -9,7 +9,6 @@ export default class NewBill {
     const formNewBill = this.document.querySelector(
       `form[data-testid="form-new-bill"]`
     );
-    console.log(formNewBill);
     formNewBill.addEventListener("submit", this.handleSubmit);
     const file = this.document.querySelector(`input[data-testid="file"]`);
     file.addEventListener("change", this.handleChangeFile);
@@ -19,39 +18,36 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate });
   }
   handleChangeFile = (e) => {
-    e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
     if (
       ![".jpg", ".png"].includes(fileName.slice(-4)) &&
-      fileName.slice(-5) !== ".jpeg" &&
-      typeof jest === "undefined"
+      fileName.slice(-5) !== ".jpeg"
     ) {
       this.document.querySelector(`input[data-testid="file"]`).value = "";
       console.error("Veuillez insérer un fichier au format jpg, jpeg ou png.");
-    } else {
-      const formData = new FormData();
-      const email = JSON.parse(localStorage.getItem("user")).email;
-      formData.append("file", file);
-      formData.append("email", email);
-
-      this.store
-        .bills()
-        .create({
-          data: formData,
-          headers: {
-            noContentType: true,
-          },
-        })
-        .then(({ fileUrl, key }) => {
-          this.billId = key;
-          this.fileUrl = fileUrl;
-          this.fileName = fileName;
-        })
-        .catch((error) => console.error(error));
     }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("email", JSON.parse(localStorage.getItem("user")).email);
+
+    this.store
+      .bills()
+      .create({
+        data: formData,
+        headers: {
+          noContentType: true,
+        },
+      })
+      .then(({ fileUrl, key }) => {
+        this.billId = key;
+        this.fileUrl = fileUrl;
+        this.fileName = fileName;
+      })
+      .catch((error) => console.error(error));
   };
   handleSubmit = (e) => {
     e.preventDefault();

@@ -34,7 +34,7 @@ afterEach(() => {
 const file = new File(["hello"], "hello.png", { type: "image/png" });
 
 describe("Given I am connected as an employee", () => {
-  describe("When I upload a file that is not a jpeg or png image", () => {
+  describe("When I upload a file that is a png image", () => {
     test("then the new file should be uploaded", () => {
       const fileInput = screen.getByTestId("file");
       userEvent.upload(fileInput, file);
@@ -45,9 +45,9 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
-  describe('When I fill out the NewBill Page and select "envoyer"', () => {
+  describe('When I fill out the NewBill Page and I select "envoyer"', () => {
     const date = new Date();
-    test("submits the form and navigates back to /bills", async () => {
+    test("the form is submitted and the app navigates back to /bills", async () => {
       userEvent.click(screen.getByTestId("expense-type"));
       userEvent.click(screen.getByText("Transports"));
 

@@ -86,7 +86,7 @@ describe("Given I am connected as an employee", () => {
       router();
       window.onNavigate(ROUTES_PATH.Bills);
 
-      const iconEyes = await screen.findAllByTestId("icon-eye");
+      const iconEyes = screen.getAllByTestId("icon-eye");
 
       userEvent.click(iconEyes[0]);
       expect(screen.getByText("Justificatif")).toBeTruthy();

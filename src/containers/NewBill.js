@@ -22,12 +22,16 @@ export default class NewBill {
       .files[0];
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
+    const inputErrorContainer = this.document.getElementById("input-error");
     if (
       ![".jpg", ".png"].includes(fileName.slice(-4)) &&
       fileName.slice(-5) !== ".jpeg"
     ) {
       this.document.querySelector(`input[data-testid="file"]`).value = "";
-      console.error("Veuillez insérer un fichier au format jpg, jpeg ou png.");
+      inputErrorContainer.innerText =
+        "Veuillez insérer un fichier au format jpg, jpeg ou png.";
+    } else {
+      inputErrorContainer.innerText = "";
     }
 
     const formData = new FormData();
